@@ -24,14 +24,14 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="site-wrapper">
+
         <div className="site-wrapper-inner">
           { !userSession.isUserSignedIn() ?
             <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />
             : <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />
           }
         </div>
-      </div>
+
     );
   }
 
