@@ -1,20 +1,16 @@
-import React, { Component, Link } from 'react';
-import Profile from './Profile.jsx';
-import Signin from './Signin.jsx';
+import React, { Component } from 'react';
+import Profile from './Profile.js';
+import Signin from './Signin.js';
 import {
   UserSession,
   AppConfig
 } from 'blockstack';
-import { Switch, Route } from 'react-router-dom'
 
-const appConfig = new AppConfig(['store_write', 'publish_data'])
+const appConfig = new AppConfig()
 const userSession = new UserSession({ appConfig: appConfig })
 
 export default class App extends Component {
 
-  constructor(props) {
-  	super(props);
-  }
 
   handleSignIn(e) {
     e.preventDefault();
@@ -32,30 +28,18 @@ export default class App extends Component {
         <div className="site-wrapper-inner">
           { !userSession.isUserSignedIn() ?
             <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />
-            : 
-            <Switch>
-              <Route 
-                path='/:username?' 
-                render={
-                  routeProps => 
-                    <Profile 
-                      userSession={userSession} 
-                      handleSignOut={ this.handleSignOut } 
-                      {...routeProps} 
-                    />
-                } 
-              />
-            </Switch>
+            : <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />
           }
         </div>
       </div>
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((userData) => {
-        window.location = window.location.origin;
+        window.history.replaceState({}, document.title, "/")
+        this.setState({ userData: userData})
       });
     }
   }

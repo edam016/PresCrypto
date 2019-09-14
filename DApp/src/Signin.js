@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 
 export default class Signin extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { handleSignIn } = this.props;
 
     return (
       <div className="panel-landing" id="section-1">
-        <h1 className="landing-heading">Publik</h1>
-        <p>Decentralized micro-blogging</p>
+        <h1 className="landing-heading">Hello, Blockstack!</h1>
         <p className="lead">
           <button
             className="btn btn-primary btn-lg"
