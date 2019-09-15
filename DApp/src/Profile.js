@@ -81,12 +81,13 @@ export default class Profile extends Component {
                 Send Files
               </Menu.Item>
               <Menu.Item key="3" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" onClick={handleSignOut.bind(this)}>
-
                 <a onClick={handleSignOut.bind(this)}>Logout</a>
               </Menu.Item>
             </Menu>
           </Header>
-          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><h1>
+            <span id="heading-name">{person.name() ? person.name() : 'Nameless Person'}</span>!</h1>
+          <span>{this.username}</span><br /><br /><br /><br /><br /><br /><br /><br />
           <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} />
           <div className="row">
             <div className="col-md-offset-3 col-md-6">
@@ -94,8 +95,7 @@ export default class Profile extends Component {
 
                 <div className="avatar-section">
 
-                  <h1> <span id="heading-name">{person.name() ? person.name() : 'Nameless Person'}</span>!</h1>
-                  <span>{this.username}</span>
+
                   <span>
 
                   </span>
@@ -124,7 +124,7 @@ export default class Profile extends Component {
 
     statuses.unshift(status)
     const options = { encrypt: false }
-    userSession.putFile('statuses.json', JSON.stringify(statuses), options)
+    userSession.putFile('statuses2.json', JSON.stringify(statuses), options)
       .then(() => {
         this.setState({
           statuses: statuses
@@ -136,7 +136,7 @@ export default class Profile extends Component {
     const { userSession } = this.props
     this.setState({ isLoading: true })
     const options = { decrypt: false }
-    userSession.getFile('statuses.json', options)
+    userSession.getFile('statuses2.json', options)
       .then((file) => {
         var statuses = JSON.parse(file || '[]')
         this.setState({
