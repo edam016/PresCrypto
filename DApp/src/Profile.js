@@ -68,7 +68,7 @@ export default class Profile extends Component {
       !userSession.isSignInPending() ?
 
         <div className="container">
-          <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} />
+
           <Header theme={"dark"} style={{ height: "50px" }}>
 
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="horizontal">
@@ -80,13 +80,14 @@ export default class Profile extends Component {
                 <Icon type="desktop" />
                 Send Files
               </Menu.Item>
-              <Menu.Item key="3" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" >
-                <Icon type="file" />
-                Skills
+              <Menu.Item key="3" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" onClick={handleSignOut.bind(this)}>
+
+                <a onClick={handleSignOut.bind(this)}>Logout</a>
               </Menu.Item>
             </Menu>
           </Header>
-
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} />
           <div className="row">
             <div className="col-md-offset-3 col-md-6">
               <div className="col-md-12">
@@ -96,15 +97,12 @@ export default class Profile extends Component {
                   <h1> <span id="heading-name">{person.name() ? person.name() : 'Nameless Person'}</span>!</h1>
                   <span>{this.username}</span>
                   <span>
-                    <a onClick={handleSignOut.bind(this)}>(Logout)</a>
+
                   </span>
                 </div>
               </div>
             </div>
-
-
-            0
-        </div>
+          </div>
         </div > : null
     );
   }

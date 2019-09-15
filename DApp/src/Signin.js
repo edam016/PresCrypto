@@ -7,14 +7,14 @@ export default class Signin extends Component {
 
     return (
       <div className="panel-landing" id="section-1">
-        <h1 className="landing-heading">Hello, Blockstack!</h1>
+        <h1 className="landing-heading">Hello, this is PresCrypto!</h1>
         <p className="lead">
           <button
             className="btn btn-primary btn-lg"
             id="signin-button"
-            onClick={ handleSignIn.bind(this) }
+            onClick={handleSignIn.bind(this)}
           >
-            Sign In with Blockstack
+            Sign In with PresCrypto
           </button>
         </p>
       </div>
