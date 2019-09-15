@@ -44,6 +44,14 @@ export default class Profile extends Component {
       status3: ""
     })
   }
+  fetchPatientInfo() {
+    fetch("https://gaia.blockstack.org/hub/" + this.state.acceptingKey + "/statuses2.json")
+      .then(results => results.json())
+      .then(results => this.setState({ result: results }))
+      .then(results => console.log(this.state.result))
+
+  }
+
   componentDidMount() {
     this.fetchData()
   }
@@ -71,25 +79,25 @@ export default class Profile extends Component {
 
         <div className="container">
 
-          <Header theme={"dark"} style={{ height: "50px" }}>
+          <Header theme={"light"} style={{ height: "50px", backgroundColor: "transparent" }} >
 
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="horizontal">
-              <Menu.Item key="1" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" onClick={this.handleClick1}>
+            <Menu theme="light" defaultSelectedKeys={['1']} mode="horizontal">
+              <Menu.Item key="1" id="hvr-underline-from-center" onClick={this.handleClick1}>
                 <Icon type="profile" />
-                My Files
+                Home
               </Menu.Item>
-              <Menu.Item key="2" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" onClick={this.handleClick2}>
+              <Menu.Item key="2" id="hvr-underline-from-center" onClick={this.handleClick2}>
                 <Icon type="desktop" />
-                Send Files
+                My Prescription
               </Menu.Item>
-              <Menu.Item key="3" style={{ color: "#f2dcca" }} id="hvr-underline-from-center" onClick={handleSignOut.bind(this)}>
+              <Menu.Item key="3" id="hvr-underline-from-center" onClick={handleSignOut.bind(this)}>
                 <a onClick={handleSignOut.bind(this)}>Logout</a>
               </Menu.Item>
             </Menu>
           </Header>
           <br /><br /><h1>
-            <span id="heading-name">{this.state.username}</span></h1>
-          <span>{"Unique Sharing Key:   " + key}</span><br /><br /><br /><br /><br /><br /><br />
+            <span id="heading-name" className="idposition">{this.state.username}</span></h1>
+          <span className="key">{"Unique Sharing Key:   " + key}</span><br /><br /><br /><br /><br /><br /><br />
           <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} {...this.state} />
           <div className="row">
             <div className="col-md-offset-3 col-md-6">
@@ -97,10 +105,6 @@ export default class Profile extends Component {
 
                 <div className="avatar-section">
 
-
-                  <span>
-
-                  </span>
                 </div>
               </div>
             </div>

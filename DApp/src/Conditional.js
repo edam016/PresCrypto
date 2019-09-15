@@ -5,6 +5,26 @@ import Profile from "./Profile"
 function Conditional(props) {
 
     console.log(props.renderFiles)
+    if (props.renderFiles === 0) {
+        return (
+            <div>
+                Enter Key for Medicine Retrieval:
+          <input type="text" value={props.acceptingKey} onChange={e => props.handleNewStatusChange(e, 'acceptingKey')} />
+
+
+
+                <div className="col-md-12">
+                    <button
+                        className="btn btn-primary btn-lg"
+                        onClick={e => this.fetchPatientInfo(e)}
+                    >
+                        Submit
+            </button>
+                </div>
+
+            </div>
+        )
+    }
     if (props.renderFiles === 2) {
         return (
             <div>
@@ -17,8 +37,10 @@ function Conditional(props) {
                                   <input type="text" value={props.status2} onChange={e => props.handleNewStatusChange(e, 'status2')} />
                         Experienced Side Effects:
                                   <input type="text" value={props.status3} onChange={e => props.handleNewStatusChange(e, 'status3')} />
+                        <br /> <br />
 
-                        <div className="col-md-12 statuses">
+                        <div className="col-md-12 statuses info">
+                            <b>My Prescriptions</b>
                             {props.isLoading && <span>Loading...</span>}
                             {(Array.from(props.statuses || [])).map((status) => (
                                 <div className="status" key={status.id}>
