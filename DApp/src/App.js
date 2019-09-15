@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Profile from './Profile.js';
 import Signin from './Signin.js';
+
+
 import {
   UserSession,
   AppConfig
 } from 'blockstack';
 
-const appConfig = new AppConfig()
+const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
 export default class App extends Component {
@@ -24,14 +26,14 @@ export default class App extends Component {
 
   render() {
     return (
-
+      <div className="site-wrapper">
         <div className="site-wrapper-inner">
-          { !userSession.isUserSignedIn() ?
-            <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />
-            : <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />
+          {!userSession.isUserSignedIn() ?
+            <Signin userSession={userSession} handleSignIn={this.handleSignIn} />
+            : <Profile userSession={userSession} handleSignOut={this.handleSignOut} />
           }
         </div>
-
+      </div>
     );
   }
 
@@ -39,7 +41,7 @@ export default class App extends Component {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((userData) => {
         window.history.replaceState({}, document.title, "/")
-        this.setState({ userData: userData})
+        this.setState({ userData: userData })
       });
     }
   }

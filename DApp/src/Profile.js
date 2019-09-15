@@ -21,8 +21,7 @@ export default class Profile extends Component {
         avatarUrl() {
           return avatarFallbackImage;
         },
-      },
-      username: "",
+      }, username: "",
       status: [],
       status1: "",
       status2: "",
@@ -31,6 +30,7 @@ export default class Profile extends Component {
       statuses: [],
       statusIndex: 0,
       isLoading: false
+
     };
     this.handleClick1 = this.handleClick1.bind(this)
     this.handleClick2 = this.handleClick2.bind(this)
@@ -68,7 +68,7 @@ export default class Profile extends Component {
       !userSession.isSignInPending() ?
 
         <div className="container">
-          <Conditional renderFiles={this.state} />
+          <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} />
           <Header theme={"dark"} style={{ height: "50px" }}>
 
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="horizontal">
@@ -102,35 +102,7 @@ export default class Profile extends Component {
               </div>
             </div>
 
-            <div className="new-status">
-              <div className="col-md-12">
 
-                Name of Medicine:
-                                  <input type="text" value={this.state.status1} onChange={e => this.handleNewStatusChange(e, 'status1')} />
-                Dosage:
-                                  <input type="text" value={this.state.status2} onChange={e => this.handleNewStatusChange(e, 'status2')} />
-                Experienced Side Effects:
-                                  <input type="text" value={this.state.status3} onChange={e => this.handleNewStatusChange(e, 'status3')} />
-
-                <div className="col-md-12 statuses">
-                  {this.state.isLoading && <span>Loading...</span>}
-                  {this.state.statuses.map((status) => (
-                    <div className="status" key={status.id}>
-                      {status.text}
-                    </div>
-                  )
-                  )}
-                </div>
-              </div>
-              <div className="col-md-12">
-                <button
-                  className="btn btn-primary btn-lg"
-                  onClick={e => this.handleNewStatusSubmit(e)}
-                >
-                  Submit
-                                  </button>
-              </div>
-            </div>
             0
         </div>
         </div > : null
