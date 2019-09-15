@@ -64,6 +64,8 @@ export default class Profile extends Component {
   render() {
     const { handleSignOut, userSession } = this.props;
     const { person } = this.state;
+    var link = person._profile.apps['http://127.0.0.1:3000']
+    const key = link.slice(-35, -1)
     return (
       !userSession.isSignInPending() ?
 
@@ -86,9 +88,9 @@ export default class Profile extends Component {
             </Menu>
           </Header>
           <br /><br /><h1>
-            <span id="heading-name">{person.name() ? person.name() : 'Nameless Person'}</span>!</h1>
-          <span>{this.username}</span><br /><br /><br /><br /><br /><br /><br /><br />
-          <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} />
+            <span id="heading-name">{this.state.username}</span></h1>
+          <span>{"Unique Sharing Key:   " + key}</span><br /><br /><br /><br /><br /><br /><br />
+          <Conditional renderFiles={this.state} handleNewStatusSubmit={(e) => this.handleNewStatusSubmit(e)} handleNewStatusChange={(e, s) => this.handleNewStatusChange(e, s)} {...this.state} />
           <div className="row">
             <div className="col-md-offset-3 col-md-6">
               <div className="col-md-12">
@@ -135,11 +137,16 @@ export default class Profile extends Component {
   fetchData() {
     const { userSession } = this.props
     this.setState({ isLoading: true })
-    const options = { decrypt: false }
-    userSession.getFile('statuses2.json', options)
+    const options = { decrypt: true }
+    userSession.getFile('statuses.json', options)
       .then((file) => {
         var statuses = JSON.parse(file || '[]')
+        console.log(statuses
+        )
+
+        debugger
         this.setState({
+          isLoading: false,
           person: new Person(userSession.loadUserData().profile),
           username: userSession.loadUserData().username,
           statusIndex: statuses.length,
@@ -147,7 +154,7 @@ export default class Profile extends Component {
         })
       })
       .finally(() => {
-        this.setState({ isLoading: false })
+        // this.setState({ isLoading: false })
       })
   }
 

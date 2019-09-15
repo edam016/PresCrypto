@@ -3,8 +3,9 @@ import MyFiles from "./MyFiles"
 import Profile from "./Profile"
 
 function Conditional(props) {
-    console.log(props.renderFiles.renderFiles)
-    if (props.renderFiles.renderFiles === 2) {
+
+    console.log(props.renderFiles)
+    if (props.renderFiles === 2) {
         return (
             <div>
                 <div className="new-status">
@@ -19,7 +20,7 @@ function Conditional(props) {
 
                         <div className="col-md-12 statuses">
                             {props.isLoading && <span>Loading...</span>}
-                            {(props.statuses || []).map((status) => (
+                            {(Array.from(props.statuses || [])).map((status) => (
                                 <div className="status" key={status.id}>
                                     {status.text}
                                 </div>
@@ -28,6 +29,7 @@ function Conditional(props) {
                         </div>
                     </div>
                     <div className="col-md-12">
+                        <br />
                         <button
                             className="btn btn-primary btn-lg"
                             onClick={e => props.handleNewStatusSubmit(e)}
@@ -38,7 +40,7 @@ function Conditional(props) {
                 </div>
             </div>
         )
-    } else if (props.renderFiles.renderFiles === 2) {
+    } else if (props.renderFiles === 2) {
         return (
             <div>
                 ADD ALL THE SEND FILES STUFF HERE
